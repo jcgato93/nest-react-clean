@@ -1,0 +1,34 @@
+{
+  "eval_id": 2,
+  "eval_name": "add-field-supplier-website",
+  "configuration": "without_skill",
+  "expectations": [
+    {
+      "text": "Reads existing files before proposing changes",
+      "passed": true,
+      "evidence": "Explored the codebase and produced specific diffs referencing actual existing code (e.g., 'customObligationIds' field, 'legalRepresentativeIdentity', migration timestamp 1772663013023)"
+    },
+    {
+      "text": "Identifies all affected layers",
+      "passed": true,
+      "evidence": "Covers domain entity, DB entity, migration, repository impl (mapToEntity, mapToDomain, findSupplierById select + plainToInstance), DTOs, and mapper"
+    },
+    {
+      "text": "Applies changes domain first",
+      "passed": true,
+      "evidence": "'1. Domain entity' then application DTOs then infrastructure — correct ordering"
+    },
+    {
+      "text": "Migration required is called out",
+      "passed": true,
+      "evidence": "Creates a full migration file with ALTER TABLE SQL and correct timestamp logic (must exceed 1772663013023)"
+    },
+    {
+      "text": "Correct TypeScript optional field syntax",
+      "passed": true,
+      "evidence": "Uses 'website?: string' in domain entity interface and DTO classes"
+    }
+  ],
+  "pass_rate": 1.0,
+  "notes": "Perfect score — without_skill performed equally well here because it explored the actual codebase. The quality is high: actual diffs, correct migration timestamp, catches the same findSupplierById nuance. The skill adds less marginal value for Scenario B modifications to existing code when the agent can read the codebase."
+}

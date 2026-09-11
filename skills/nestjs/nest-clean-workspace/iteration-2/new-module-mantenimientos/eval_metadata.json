@@ -1,0 +1,42 @@
+{
+  "eval_id": 1,
+  "eval_name": "new-module-mantenimientos",
+  "prompt": "Necesito un módulo de mantenimientos de activos. Cada mantenimiento tiene: descripción (required), costo (decimal, required), fecha (date, required), tipo (enum: PREVENTIVO, CORRECTIVO, GARANTIA), y pertenece a una compañía. Las operaciones son: crear, obtener por ID, y listar por compañía con paginación.",
+  "assertions": [
+    {
+      "id": "A1",
+      "name": "Sends confirmation before writing code",
+      "description": "The response sends a structured confirmation message asking the user to verify module details before generating any code"
+    },
+    {
+      "id": "A2",
+      "name": "Confirmation covers all 5 required fields",
+      "description": "Confirmation message includes: module name, entity fields, operations, authentication, and pagination"
+    },
+    {
+      "id": "A3",
+      "name": "Domain files listed before application files",
+      "description": "Domain layer files appear before application layer files in the plan"
+    },
+    {
+      "id": "A4",
+      "name": "All file names and class names in English",
+      "description": "File paths and class names use English (e.g. asset-maintenance, AssetMaintenance) NOT Spanish (mantenimiento, Mantenimiento)"
+    },
+    {
+      "id": "A5",
+      "name": "Three use case interfaces created",
+      "description": "One use case interface per operation: create, get by id, list (3 total)"
+    },
+    {
+      "id": "A6",
+      "name": "Migration mentioned",
+      "description": "The response mentions generating a TypeORM migration for the new table"
+    },
+    {
+      "id": "A7",
+      "name": "References sub-skill files",
+      "description": "The response references the sub-skill files before working on each layer"
+    }
+  ]
+}

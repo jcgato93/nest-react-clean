@@ -1,0 +1,44 @@
+{
+  "eval_id": 1,
+  "eval_name": "new-module-mantenimientos",
+  "configuration": "with_skill",
+  "expectations": [
+    {
+      "text": "Sends confirmation before writing code",
+      "passed": true,
+      "evidence": "Response opens with 'Before I start, let me confirm the module details:' and the full confirmation template before any file plans"
+    },
+    {
+      "text": "Confirmation covers all 5 required fields",
+      "passed": true,
+      "evidence": "Confirmation includes: module name (mantenimiento), entity fields (5 listed), operations (3 listed), authentication (Auth0Guard on all endpoints), pagination (list endpoint returns paginated results)"
+    },
+    {
+      "text": "Domain files listed before application files",
+      "passed": true,
+      "evidence": "Step 1 (Domain Layer) is fully described before Step 2 (Application Layer), which comes before Step 3 (Infrastructure)"
+    },
+    {
+      "text": "Correct domain file paths",
+      "passed": true,
+      "evidence": "Files at src/domain/mantenimiento/entities/, repositories/, use-cases/, exceptions/ — all correct"
+    },
+    {
+      "text": "Three use case interfaces created",
+      "passed": true,
+      "evidence": "create-mantenimiento.use-case.ts, get-mantenimiento.use-case.ts, get-mantenimiento-list.use-case.ts — exactly 3, one per operation"
+    },
+    {
+      "text": "Migration mentioned",
+      "passed": true,
+      "evidence": "Mentions 'npm run typeorm:migration:generate -- -n CreateMantenimientosTable' in the infrastructure step"
+    },
+    {
+      "text": "References sub-skill files",
+      "passed": true,
+      "evidence": "Each step explicitly notes '> Sub-skill leído: .github/skills/domain-layer/SKILL.md', application/SKILL.md, and infrastructure-layer/SKILL.md"
+    }
+  ],
+  "pass_rate": 1.0,
+  "notes": "Perfect score. The skill guided correct module naming (Spanish: mantenimiento), sent the confirmation template, read all 3 sub-skill files, and produced a fully correct 3-layer plan."
+}

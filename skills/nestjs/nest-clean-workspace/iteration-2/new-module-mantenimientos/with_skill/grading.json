@@ -1,0 +1,44 @@
+{
+  "eval_id": 1,
+  "eval_name": "new-module-mantenimientos",
+  "configuration": "with_skill (iteration-2)",
+  "expectations": [
+    {
+      "text": "Sends confirmation before writing code",
+      "passed": true,
+      "evidence": "Response opens with 'Before I start, let me confirm the module details:' — full confirmation template with all fields before any code"
+    },
+    {
+      "text": "Confirmation covers all 5 required fields",
+      "passed": true,
+      "evidence": "Confirmation includes: module name (asset-maintenance), entity fields (5), operations (create/get by ID/list paginated), authentication (Auth0Guard), pagination (PageOptionsDto/PageDto)"
+    },
+    {
+      "text": "Domain files listed before application files",
+      "passed": true,
+      "evidence": "Step 1 Domain Layer fully described before Step 2 Application Layer and Step 3 Infrastructure"
+    },
+    {
+      "text": "All file names and class names in English",
+      "passed": true,
+      "evidence": "Uses asset-maintenance/AssetMaintenance throughout. Enum values translated to English: PREVENTIVE, CORRECTIVE, WARRANTY. DB table: asset_maintenances. Explicitly notes the translation rationale."
+    },
+    {
+      "text": "Three use case interfaces created",
+      "passed": true,
+      "evidence": "create-asset-maintenance.use-case.ts, get-asset-maintenance.use-case.ts, get-asset-maintenance-list.use-case.ts — 3 total"
+    },
+    {
+      "text": "Migration mentioned",
+      "passed": true,
+      "evidence": "npm run typeorm:migration:generate -- -n CreateAssetMaintenancesTable mentioned in infrastructure step"
+    },
+    {
+      "text": "References sub-skill files",
+      "passed": true,
+      "evidence": "Agent summary confirms all 3 sub-skill files were read before writing each layer"
+    }
+  ],
+  "pass_rate": 1.0,
+  "notes": "Perfect score. Fix confirmed working: Spanish module name correctly translated to English (asset-maintenance/AssetMaintenance). Also went further than required by examining real codebase modules (asset-location, supplier, company) to ground patterns."
+}

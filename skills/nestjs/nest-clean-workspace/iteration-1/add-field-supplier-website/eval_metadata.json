@@ -1,0 +1,32 @@
+{
+  "eval_id": 2,
+  "eval_name": "add-field-supplier-website",
+  "prompt": "Agrega un campo `website` (string, opcional) a la entidad supplier. Debe aparecer en el response DTO y en Swagger.",
+  "assertions": [
+    {
+      "id": "B1",
+      "name": "Reads existing files before proposing changes",
+      "description": "The response explicitly reads or lists the existing supplier files (entity, mapper, DTO, DB entity) before proposing changes"
+    },
+    {
+      "id": "B2",
+      "name": "Identifies all affected layers",
+      "description": "Identifies that the change affects domain entity, mapper, response DTO, and DB entity (all four)"
+    },
+    {
+      "id": "B3",
+      "name": "Applies changes domain first",
+      "description": "Domain entity change is proposed before application layer (mapper/DTO) changes"
+    },
+    {
+      "id": "B4",
+      "name": "Migration required is called out",
+      "description": "Explicitly states that a migration is required because the DB entity changes"
+    },
+    {
+      "id": "B5",
+      "name": "Correct TypeScript optional field syntax",
+      "description": "The proposed domain entity change uses optional field syntax (website?: string)"
+    }
+  ]
+}

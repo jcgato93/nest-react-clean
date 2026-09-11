@@ -1,0 +1,34 @@
+{
+  "eval_id": 2,
+  "eval_name": "add-field-supplier-website",
+  "configuration": "with_skill (iteration-2)",
+  "expectations": [
+    {
+      "text": "Reads existing files before proposing changes",
+      "passed": true,
+      "evidence": "Agent read all supplier files before proposing changes — confirmed by key findings referencing actual code (UpdateSupplierDto extends CreateSupplierDto, findSupplierById plainToInstance pattern)"
+    },
+    {
+      "text": "Identifies all affected layers",
+      "passed": true,
+      "evidence": "Covers domain entity, create DTO, detail response DTO, mapper, DB entity, repository (mapToDomain, mapToEntity, findSupplierById select+plainToInstance)"
+    },
+    {
+      "text": "Applies changes domain first",
+      "passed": true,
+      "evidence": "Domain → Application → Infrastructure ordering confirmed in response"
+    },
+    {
+      "text": "Migration required is called out",
+      "passed": true,
+      "evidence": "AddWebsiteToSuppliers migration with ALTER TABLE mentioned"
+    },
+    {
+      "text": "Correct TypeScript optional field syntax",
+      "passed": true,
+      "evidence": "website?: string used in domain entity and DTOs"
+    }
+  ],
+  "pass_rate": 1.0,
+  "notes": "Perfect score, consistent with iteration-1. Naming convention fix does not affect Scenario B tests."
+}

@@ -1,0 +1,34 @@
+{
+  "eval_id": 3,
+  "eval_name": "hybrid-bank-account",
+  "configuration": "with_skill",
+  "expectations": [
+    {
+      "text": "Identifies hybrid scenario",
+      "passed": true,
+      "evidence": "'Escenario detectado: C — Híbrido (campo nuevo + nuevo endpoint)' — explicitly labeled at the top"
+    },
+    {
+      "text": "Field change handled before new endpoint",
+      "passed": true,
+      "evidence": "'Parte 1 — Agregar campo swiftCode' is fully resolved (all 6 files + migration) before 'Parte 2 — Nuevo endpoint'"
+    },
+    {
+      "text": "Migration called out for field addition",
+      "passed": true,
+      "evidence": "'npm run typeorm:migration:generate -- -n AddSwiftCodeToBankAccounts' with instructions to review before applying"
+    },
+    {
+      "text": "New use case interface for search endpoint",
+      "passed": true,
+      "evidence": "New file 'get-bank-account-by-account-number.use-case.ts' with interface GetBankAccountByAccountNumberUseCase created in domain layer"
+    },
+    {
+      "text": "Reads existing bank-account files first",
+      "passed": true,
+      "evidence": "Agent read all existing bank-account files before proposing changes (confirmed in agent summary: 'Read every existing bank-account file across all three layers')"
+    }
+  ],
+  "pass_rate": 1.0,
+  "notes": "Perfect score. Extra quality notes: normalized swiftCode to uppercase/trim in domain constructor (correct SWIFT convention), caught the NestJS route ordering issue (by-account-number must come before /:id), and separated field migration from endpoint (no migration for Part 2)."
+}

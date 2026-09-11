@@ -1,0 +1,34 @@
+{
+  "eval_id": 2,
+  "eval_name": "add-field-supplier-website",
+  "configuration": "with_skill",
+  "expectations": [
+    {
+      "text": "Reads existing files before proposing changes",
+      "passed": true,
+      "evidence": "Explicit section 'Archivos leidos antes de proponer cambios' lists all 9 supplier files read before any changes are proposed"
+    },
+    {
+      "text": "Identifies all affected layers",
+      "passed": true,
+      "evidence": "Identifies Domain entity, Application DTOs (create + detail response), Application mapper, Infrastructure DB entity, and Infrastructure repository (mapToDomain, mapToEntity, findSupplierById) — all four layers covered"
+    },
+    {
+      "text": "Applies changes domain first",
+      "passed": true,
+      "evidence": "Changes ordered as: Capa 1 — Domain, Capa 2 — Application, Capa 3 — Infrastructure"
+    },
+    {
+      "text": "Migration required is called out",
+      "passed": true,
+      "evidence": "'npm run typeorm:migration:generate -- -n AddWebsiteToSuppliers' with review instructions"
+    },
+    {
+      "text": "Correct TypeScript optional field syntax",
+      "passed": true,
+      "evidence": "Domain entity shows 'website?: string', DTO shows 'website?: string', response DTO shows 'website?: string'"
+    }
+  ],
+  "pass_rate": 1.0,
+  "notes": "Perfect score. Notably caught the findSupplierById nuance (builds DTO via plainToInstance from a literal object, not the standard mapper path) — requires two places in the repository. Also correctly decided NOT to add website to SupplierListResponseDto, explaining why explicitly."
+}

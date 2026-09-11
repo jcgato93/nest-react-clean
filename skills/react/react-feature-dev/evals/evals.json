@@ -1,0 +1,101 @@
+{
+  "skill_name": "react-feature-dev",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Necesito agregar un módulo de Tipos de Activos Fijos al proyecto. Debe tener un listado con tabla, formulario para crear/editar en un dialog, y confirmación para eliminar. Los campos son: nombre (requerido, máx 100 chars), código (requerido, único, máx 20 chars), descripción (opcional), y activo (boolean). El endpoint base es /fixed-asset-types.",
+      "expected_output": "El agente debe: 1) Analizar archivos existentes en el proyecto, 2) Presentar un plan detallado con archivos a crear/modificar, 3) Esperar confirmación, 4) Implementar en orden: tipos Zod → endpoints → servicio → página → componentes → ruta. Todo usando los patrones del proyecto: useApiGet/useApiSend, Zustand para estado de UI, shadcn-ui, Tailwind, TypeScript strict, alias @/.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "plan-presentado-antes-de-implementar",
+          "description": "El agente presenta un plan de implementación y solicita confirmación antes de escribir código"
+        },
+        {
+          "name": "tipos-en-dominio",
+          "description": "Se crean tipos e interfaces en src/domain/fixed-asset-types/ con schema Zod y tipos inferidos con z.infer<>"
+        },
+        {
+          "name": "endpoints-en-axios",
+          "description": "Los endpoints se definen en src/common/axios.ts siguiendo el patrón existente"
+        },
+        {
+          "name": "servicio-estatico",
+          "description": "El servicio usa clase con métodos estáticos, importa apiService desde @/services/api.service"
+        },
+        {
+          "name": "hooks-personalizados-usados",
+          "description": "El componente usa useApiGet y useApiSend del wrapper personalizado, no useQuery/useMutation directos"
+        },
+        {
+          "name": "sin-any-implicito",
+          "description": "No hay uso de `any` implícito o explícito en el código generado"
+        },
+        {
+          "name": "alias-correctos",
+          "description": "Todas las importaciones usan el alias @/ y no rutas relativas largas"
+        },
+        {
+          "name": "ruta-lazy-loading",
+          "description": "La ruta se registra en AppRouter.tsx con lazy() y Suspense"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Quiero agregar al módulo de usuarios (src/pages/users/) un filtro por estado (activo/inactivo) que se refleje en la URL. Actualmente la página carga todos los usuarios. El filtro debe ser un select con opciones Todos/Activo/Inactivo, y al cambiar debe actualizar los datos sin recargar la página.",
+      "expected_output": "El agente debe: 1) Leer el código existente de UsersPage, 2) Analizar el impacto, 3) Proponer usar nuqs para el estado en URL, modificar el QueryKey de React Query para incluir el filtro, adaptar el servicio si es necesario, y agregar el componente Select con shadcn-ui.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "lee-codigo-existente",
+          "description": "El agente lee los archivos existentes de la página de usuarios antes de proponer cambios"
+        },
+        {
+          "name": "usa-nuqs-para-url",
+          "description": "El filtro usa useQueryState de nuqs para persistir el estado en la URL"
+        },
+        {
+          "name": "query-key-incluye-filtro",
+          "description": "El QueryKey de useApiGet incluye el valor del filtro para que React Query refetch cuando cambia"
+        },
+        {
+          "name": "shadcn-select-usado",
+          "description": "El componente de filtro usa el Select de shadcn-ui desde @/components/ui/select"
+        },
+        {
+          "name": "no-redux-no-usestate-para-filtro",
+          "description": "No se usa useState ni Zustand para el filtro (debe estar en URL con nuqs)"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Crea un componente reutilizable SelectDepreciation para seleccionar métodos de depreciación. Los datos vienen de GET /depreciation-methods y retorna { id, name, code }. Debe ser reutilizable en varios formularios del módulo de activos fijos.",
+      "expected_output": "El agente debe crear: 1) Tipos en domain/depreciation-methods/, 2) Endpoint en axios.ts, 3) Servicio DepreciationMethodService, 4) Componente SelectDepreciation en src/components/functional/ usando useApiGet, SelectSkeleton para loading, y manejo de error.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "componente-en-functional",
+          "description": "El componente se crea en src/components/functional/ al ser reutilizable entre módulos"
+        },
+        {
+          "name": "props-interface-tipada",
+          "description": "El componente tiene interfaz de props tipada con value, onChange, y disabled opcional"
+        },
+        {
+          "name": "skeleton-en-loading",
+          "description": "Usa SelectSkeleton o similar durante el estado isLoading"
+        },
+        {
+          "name": "manejo-de-error",
+          "description": "Maneja el estado de error devolviendo un elemento de error descriptivo"
+        },
+        {
+          "name": "query-key-estable",
+          "description": "El QueryKey es estático ['depreciation-methods'] ya que no depende de parámetros dinámicos"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "skill_name": "nest-clean",
+  "iteration": 1,
+  "configurations": [
+    {
+      "name": "with_skill",
+      "evals": [
+        {
+          "eval_id": 1,
+          "eval_name": "new-module-mantenimientos",
+          "pass_rate": 1.0,
+          "duration_seconds": 123.6,
+          "total_tokens": 27468
+        },
+        {
+          "eval_id": 2,
+          "eval_name": "add-field-supplier-website",
+          "pass_rate": 1.0,
+          "duration_seconds": 103.5,
+          "total_tokens": 58853
+        },
+        {
+          "eval_id": 3,
+          "eval_name": "hybrid-bank-account",
+          "pass_rate": 1.0,
+          "duration_seconds": 139.9,
+          "total_tokens": 53175
+        }
+      ],
+      "aggregate": {
+        "mean_pass_rate": 1.0,
+        "mean_duration_seconds": 122.3,
+        "mean_tokens": 46499
+      }
+    },
+    {
+      "name": "without_skill",
+      "evals": [
+        {
+          "eval_id": 1,
+          "eval_name": "new-module-mantenimientos",
+          "pass_rate": 0.571,
+          "duration_seconds": 184.8,
+          "total_tokens": 66299
+        },
+        {
+          "eval_id": 2,
+          "eval_name": "add-field-supplier-website",
+          "pass_rate": 1.0,
+          "duration_seconds": 96.0,
+          "total_tokens": 52785
+        },
+        {
+          "eval_id": 3,
+          "eval_name": "hybrid-bank-account",
+          "pass_rate": 0.8,
+          "duration_seconds": 153.0,
+          "total_tokens": 50040
+        }
+      ],
+      "aggregate": {
+        "mean_pass_rate": 0.790,
+        "mean_duration_seconds": 144.6,
+        "mean_tokens": 56375
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate": "+0.210 (+26.6%)",
+    "duration_seconds": "-22.3s (with_skill is faster)",
+    "tokens": "-9876 (with_skill uses fewer tokens)"
+  },
+  "analyst_notes": [
+    "Test 2 (add-field) is non-discriminating: both configurations score 100%. This is because the without_skill agent explored the actual codebase and achieved the same quality. This assertion set doesn't differentiate skill vs no-skill for Scenario B.",
+    "Test 1 (new-module) is the most discriminating: 100% vs 57%. The confirmation template and sub-skill file references are uniquely provided by the skill.",
+    "Test 3 (hybrid) shows a meaningful gap: 100% vs 80%. The skill's Scenario C guidance (complete field change before starting endpoint) was the differentiating factor — without_skill interleaved the two changes.",
+    "with_skill is faster on average (122s vs 145s) despite reading sub-skill files, because the structured plan reduces exploration time.",
+    "with_skill uses fewer tokens on average (46K vs 56K) — the skill provides focused context rather than broad codebase exploration."
+  ]
+}

@@ -1,0 +1,80 @@
+{
+  "skill_name": "nest-clean",
+  "iteration": 2,
+  "configurations": [
+    {
+      "name": "with_skill (iteration-2)",
+      "evals": [
+        {
+          "eval_id": 1,
+          "eval_name": "new-module-mantenimientos",
+          "pass_rate": 1.0,
+          "duration_seconds": 215.8,
+          "total_tokens": 78282
+        },
+        {
+          "eval_id": 2,
+          "eval_name": "add-field-supplier-website",
+          "pass_rate": 1.0,
+          "duration_seconds": 91.7,
+          "total_tokens": 48288
+        },
+        {
+          "eval_id": 3,
+          "eval_name": "hybrid-bank-account",
+          "pass_rate": 1.0,
+          "duration_seconds": 196.8,
+          "total_tokens": 55999
+        }
+      ],
+      "aggregate": {
+        "mean_pass_rate": 1.0,
+        "mean_duration_seconds": 168.1,
+        "mean_tokens": 60856
+      }
+    },
+    {
+      "name": "with_skill (iteration-1, baseline)",
+      "evals": [
+        {
+          "eval_id": 1,
+          "eval_name": "new-module-mantenimientos",
+          "pass_rate": 0.857,
+          "duration_seconds": 123.6,
+          "total_tokens": 27468,
+          "note": "Passed 6/7 — failed A4 (used Spanish naming: mantenimiento instead of asset-maintenance)"
+        },
+        {
+          "eval_id": 2,
+          "eval_name": "add-field-supplier-website",
+          "pass_rate": 1.0,
+          "duration_seconds": 103.5,
+          "total_tokens": 58853
+        },
+        {
+          "eval_id": 3,
+          "eval_name": "hybrid-bank-account",
+          "pass_rate": 1.0,
+          "duration_seconds": 139.9,
+          "total_tokens": 53175
+        }
+      ],
+      "aggregate": {
+        "mean_pass_rate": 0.952,
+        "mean_duration_seconds": 122.3,
+        "mean_tokens": 46499
+      }
+    }
+  ],
+  "delta": {
+    "pass_rate": "+0.048 (+5%)",
+    "note": "Naming fix resolved the only failing assertion. Iteration-2 achieves 100% across all 3 tests."
+  },
+  "analyst_notes": [
+    "The naming convention fix worked cleanly: iteration-2 test 1 used English (asset-maintenance/AssetMaintenance) where iteration-1 used Spanish (mantenimiento/Mantenimiento).",
+    "Test 1 pass rate improved from 6/7 (86%) to 7/7 (100%) — the only regression was assertion A4.",
+    "Tests 2 and 3 remain at 100% — the fix did not break existing correct behavior.",
+    "Iteration-2 test 1 took longer (216s vs 124s) because the agent also explored existing codebase modules to ground patterns — this is additive quality, not a regression.",
+    "Overall: iteration-2 skill achieves 100% pass rate across all scenarios."
+  ]
+}

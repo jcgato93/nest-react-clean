@@ -1,0 +1,34 @@
+{
+  "eval_id": 3,
+  "eval_name": "hybrid-bank-account",
+  "configuration": "without_skill",
+  "expectations": [
+    {
+      "text": "Identifies hybrid scenario",
+      "passed": true,
+      "evidence": "'Dos objetivos' section clearly separates the two changes and processes them independently"
+    },
+    {
+      "text": "Field change handled before new endpoint",
+      "passed": false,
+      "evidence": "The response interleaves the two changes. The ordering list (steps 1-12) mixes field propagation with the new endpoint setup: steps 5-7 introduce the new use case before the DB entity (step 9) and migration (step 10) for swiftCode are complete. The field change is not fully resolved before the endpoint work begins."
+    },
+    {
+      "text": "Migration called out for field addition",
+      "passed": true,
+      "evidence": "Migration file created with correct ALTER TABLE SQL"
+    },
+    {
+      "text": "New use case interface for search endpoint",
+      "passed": true,
+      "evidence": "New file get-bank-account-by-account-number.use-case.ts created with GetBankAccountByAccountNumberUseCase interface"
+    },
+    {
+      "text": "Reads existing bank-account files first",
+      "passed": true,
+      "evidence": "Explored the codebase and referenced actual code (PermissionsEnum.BANK_ACCOUNT_READ, existing providers list in module, actual field names)"
+    }
+  ],
+  "pass_rate": 0.8,
+  "notes": "Good overall but partially failed on the hybrid separation: the single numbered list (steps 1-12) interleaves swiftCode changes with the new endpoint rather than completing Part 1 entirely before starting Part 2. The skill's Scenario C guidance (complete the field change fully before the endpoint) was not followed. Noteworthy: caught the accountNumber lowercase normalization issue in the repository."
+}

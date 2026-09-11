@@ -1,0 +1,44 @@
+{
+  "eval_id": 1,
+  "eval_name": "new-module-mantenimientos",
+  "configuration": "without_skill",
+  "expectations": [
+    {
+      "text": "Sends confirmation before writing code",
+      "passed": false,
+      "evidence": "Goes directly into the file structure without sending a confirmation message to the user"
+    },
+    {
+      "text": "Confirmation covers all 5 required fields",
+      "passed": false,
+      "evidence": "No confirmation message was sent"
+    },
+    {
+      "text": "Domain files listed before application files",
+      "passed": true,
+      "evidence": "Section '1. Domain layer' appears before '2. Application layer (DTOs, mapper, implementaciones)' and infrastructure"
+    },
+    {
+      "text": "Correct domain file paths",
+      "passed": false,
+      "evidence": "Uses English naming 'asset-maintenance' (src/domain/asset-maintenance/) instead of Spanish 'mantenimiento' that the project convention and the prompt suggest. The module name given was 'mantenimientos', so paths should reflect that."
+    },
+    {
+      "text": "Three use case interfaces created",
+      "passed": true,
+      "evidence": "create-asset-maintenance.use-case.ts, get-asset-maintenance-by-id.use-case.ts, get-asset-maintenances-by-company.use-case.ts — 3 use case contracts"
+    },
+    {
+      "text": "Migration mentioned",
+      "passed": true,
+      "evidence": "Includes a full migration file with CREATE TABLE SQL"
+    },
+    {
+      "text": "References sub-skill files",
+      "passed": false,
+      "evidence": "Does not reference any sub-skill files — works from general NestJS knowledge only"
+    }
+  ],
+  "pass_rate": 0.571,
+  "notes": "Good structural knowledge (domain-first ordering, correct patterns), but: no confirmation message, uses English naming convention that diverges from the project pattern (other modules use the name as given, e.g. 'supplier', 'bank-account', not English translations), and does not read sub-skill files. Also missing: plainToInstance/plainToInstanceList on the entity, Redis cache in use cases, and @CompanyId() decorator awareness from the codebase."
+}

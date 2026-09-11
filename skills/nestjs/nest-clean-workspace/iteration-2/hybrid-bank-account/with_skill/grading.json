@@ -1,0 +1,34 @@
+{
+  "eval_id": 3,
+  "eval_name": "hybrid-bank-account",
+  "configuration": "with_skill (iteration-2)",
+  "expectations": [
+    {
+      "text": "Identifies hybrid scenario",
+      "passed": true,
+      "evidence": "Scenario C recognized: 'PART 1 — swiftCode field' completed fully before 'PART 2 — New endpoint'"
+    },
+    {
+      "text": "Field change handled before new endpoint",
+      "passed": true,
+      "evidence": "All 7 files for swiftCode (including migration) fully resolved before the endpoint work begins — consistent with Scenario C guidance"
+    },
+    {
+      "text": "Migration called out for field addition",
+      "passed": true,
+      "evidence": "npm run typeorm:migration:generate -- -n AddSwiftCodeToBankAccounts in Part 1"
+    },
+    {
+      "text": "New use case interface for search endpoint",
+      "passed": true,
+      "evidence": "get-bank-account-by-account-number.use-case.ts created with GetBankAccountByAccountNumberUseCase interface and step-by-step JSDoc"
+    },
+    {
+      "text": "Reads existing bank-account files first",
+      "passed": true,
+      "evidence": "Agent read all existing bank-account files across all layers before proposing changes (confirmed in summary)"
+    }
+  ],
+  "pass_rate": 1.0,
+  "notes": "Perfect score. Also caught route ordering issue (by-account-number before :id) and accountNumber lowercase normalization."
+}

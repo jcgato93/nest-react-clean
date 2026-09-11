@@ -1,0 +1,32 @@
+{
+  "eval_id": 3,
+  "eval_name": "hybrid-bank-account",
+  "prompt": "Para el módulo bank-account, necesito agregar un campo `swiftCode` (string, opcional, máx 11 caracteres) Y también un nuevo endpoint para buscar una cuenta bancaria por su número de cuenta.",
+  "assertions": [
+    {
+      "id": "C1",
+      "name": "Identifies hybrid scenario",
+      "description": "The response recognizes or explicitly states that this involves two separate changes (field addition + new endpoint)"
+    },
+    {
+      "id": "C2",
+      "name": "Field change handled before new endpoint",
+      "description": "The swiftCode field addition is fully addressed before the new search endpoint work begins"
+    },
+    {
+      "id": "C3",
+      "name": "Migration called out for field addition",
+      "description": "Mentions migration is needed for the swiftCode field"
+    },
+    {
+      "id": "C4",
+      "name": "New use case interface for search endpoint",
+      "description": "A new use case interface for findByAccountNumber (or similar) is mentioned in the domain layer for the new endpoint"
+    },
+    {
+      "id": "C5",
+      "name": "Reads existing bank-account files first",
+      "description": "The response reads or lists existing bank-account module files before proposing any changes"
+    }
+  ]
+}

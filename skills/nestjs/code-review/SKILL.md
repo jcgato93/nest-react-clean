@@ -30,8 +30,9 @@ Realizar revisiones de Pull Request con enfoque en calidad, arquitectura limpia,
 ## Checklist de Revisión de Pull Request
 
 
-Tomar de referencia los archivos de instrucciones específicos para cada capa (Domain, Infrastructure, Application) y tipo de componente (Entities, Repositorios, Controladores, etc.) para evaluar cada aspecto del código revisado.
-Estos se encuentran en la carpeta `.github/skills/` y deben ser aplicados según corresponda a los archivos modificados en el Pull Request.
+Tomar de referencia los skills de capa específicos (`domain-layer`, `application-layer`, `infrastructure-layer`, `domain-events`) para evaluar cada aspecto del código revisado, según corresponda a los archivos modificados en el Pull Request. Son skills independientes, model-invoked, distribuidos desde el mismo repo `jcgato93/nest-react-clean` — no son archivos dentro de esta carpeta ni tienen una ruta fija (varía según el agente/instalación), así que nunca se debe asumir una ruta como `.github/skills/...` o `.claude/skills/...`.
+
+Si el skill de la capa que se está revisando no está disponible, decirlo explícitamente en el resumen ejecutivo (p. ej. "no se pudo validar la capa Domain en detalle: el skill `domain-layer` no está instalado — instálalo con `npx skills@latest add jcgato93/nest-react-clean --skill domain-layer`") en vez de inventar el criterio o saltarlo en silencio.
 
 ### General
 - [ ] ¿El código sigue las convenciones de estilo establecidas en el proyecto?

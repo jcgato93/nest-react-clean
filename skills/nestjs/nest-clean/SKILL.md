@@ -42,15 +42,25 @@ src/modules/{module}/
 
 ## Sub-Skill Reference
 
-Read the sub-skill file before writing any code in that layer:
+`nest-clean` is the orchestrator — it never implements a layer itself. For each layer, invoke the matching sub-skill below **before** writing any code in that layer:
 
-| Task | Read this file |
-|------|----------------|
-| Entity, value object, repository/use-case interface, exception | `.github/skills/domain-layer/SKILL.md` |
-| Use case implementation, DTOs, mapper | `.github/skills/application/SKILL.md` |
-| Prisma model, repository impl, controller, module, migration | `.github/skills/infrastructure-layer/SKILL.md` |
-| Domain events, AggregateRoot, event listeners/handlers | `.github/skills/domain-events/SKILL.md` |
-| Code review / PR | `.github/skills/code-review/SKILL.md` |
+| Task | Skill to invoke |
+|------|------------------|
+| Entity, value object, repository/use-case interface, exception | `domain-layer` |
+| Use case implementation, DTOs, mapper | `application-layer` |
+| Prisma model, repository impl, controller, module, migration | `infrastructure-layer` |
+| Domain events, AggregateRoot, event listeners/handlers | `domain-events` |
+| Code review / PR | `code-review-instructions` |
+
+These are separate, model-invoked skills distributed from the same `jcgato93/nest-react-clean` repo — they are not files inside this skill's own directory, and their install location varies by agent/setup, so never hardcode a path to them (e.g. `.github/skills/...` or `.claude/skills/...`).
+
+**Before starting a layer, confirm its skill is actually available** (check the current list of loaded/available skills). If the skill this step needs is missing:
+
+1. Stop before writing any code for that layer.
+2. Tell the user, e.g.:
+   > The `domain-layer` skill isn't installed, so I can't safely follow its rules for entities/value-objects/exceptions. Install it with:
+   > `npx skills@latest add jcgato93/nest-react-clean --skill domain-layer` (or `--all` to install every skill in the set).
+3. Wait for the user to install it (or explicitly say to proceed without it) before continuing.
 
 ---
 
@@ -78,21 +88,21 @@ Does this look correct? I'll start with the domain layer once confirmed.
 
 Then follow Steps 1 → 2 → 3 in order. Never start the next step until the current one is complete and verified.
 
-**Step 1 — Domain Layer** *(read `.github/skills/domain-layer/SKILL.md` first)*
+**Step 1 — Domain Layer** *(invoke the `domain-layer` skill first — see [Sub-Skill Reference](#sub-skill-reference) if it's not available)*
 - `src/modules/{module}/domain/entities/{entity}.domain.ts`
 - `src/modules/{module}/domain/repositories/{module}.repository.ts`
 - `src/modules/{module}/domain/use-cases/{action}.use-case.ts` (one per operation)
 - `src/modules/{module}/domain/exceptions/*.exception.ts`
 - `src/modules/{module}/domain/value-objects/*.value-object.ts` (if needed)
 
-**Step 2 — Application Layer** *(read `.github/skills/application/SKILL.md` first)*
+**Step 2 — Application Layer** *(invoke the `application-layer` skill first — see [Sub-Skill Reference](#sub-skill-reference) if it's not available)*
 *(start only after Step 1 is complete)*
 - `src/modules/{module}/application/dtos/create-{entity}.dto.ts`
 - `src/modules/{module}/application/dtos/{entity}-response.dto.ts`
 - `src/modules/{module}/application/mappers/{entity}.mapper.ts`
 - `src/modules/{module}/application/use-cases/{action}.use-case.impl.ts`
 
-**Step 3 — Infrastructure Layer** *(read `.github/skills/infrastructure-layer/SKILL.md` first)*
+**Step 3 — Infrastructure Layer** *(invoke the `infrastructure-layer` skill first — see [Sub-Skill Reference](#sub-skill-reference) if it's not available)*
 *(start only after Step 2 is complete)*
 - Add the `model` block to `prisma/schema.prisma` + generate migration (`pnpm run prisma:migrate:dev --name ...`)
 - `src/modules/{module}/infrastructure/repositories/{entity}.repository.impl.ts`
@@ -134,7 +144,7 @@ Then follow Steps 1 → 2 → 3 in order. Never start the next step until the cu
 | Add cache to a use case | Application only (use case impl + RedisKeyEnum if new) | No |
 | Rename field in DB | Infrastructure (Prisma model + mappers) | Yes |
 
-For layer-specific implementation details, read the corresponding sub-skill file.
+For layer-specific implementation details, invoke the corresponding sub-skill (see [Sub-Skill Reference](#sub-skill-reference)).
 
 ---
 

@@ -7,7 +7,7 @@ The **External Services** component of the Infrastructure Layer is responsible f
 - **Service Integration**: Implementing the necessary logic to communicate with external services, including handling authentication, requests, and responses.
 - **Abstraction**: Providing a clear interface for the domain and application layers to interact with external services without being coupled to specific implementations.
 - **Error Handling**: Managing errors and exceptions that may arise from interactions with external services.
-- **Configuration Management**: Handling configuration settings for external services, such as API keys and endpoints.
+- **Configuration Management**: Handling configuration settings for external services, such as API keys and endpoints — see the `environment-config` skill for how those values are declared, validated, and typed in `src/infrastructure/config/envs.ts`.
 
 ## Best Practices
 - **Use Interfaces**: Define interfaces for external services in the domain layer to ensure loose coupling and facilitate testing.

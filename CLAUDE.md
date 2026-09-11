@@ -37,6 +37,7 @@ Companion reference files (e.g. `entities.md`, `use-cases.md`, `component-patter
 | `skills/nestjs/application/` | Use case implementations, DTOs, mappers |
 | `skills/nestjs/infrastructure-layer/` | Prisma models/migrations, repository impls, controllers, NestJS modules |
 | `skills/nestjs/domain-events/` | `AggregateRoot`, domain events, event handlers/listeners |
+| `skills/nestjs/environment-config/` | `envs.ts`, Zod-validated environment variables, external service config |
 | `skills/nestjs/code-review/` | Structured PR review with severity ratings and a per-layer checklist |
 
 Layer order matters: domain is always implemented before application, application before infrastructure. When editing these skills, preserve that inward-dependency rule — it's the core invariant the whole skill set exists to enforce.

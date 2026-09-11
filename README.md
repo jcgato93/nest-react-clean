@@ -7,7 +7,7 @@
   <img alt="License" src="https://img.shields.io/github/license/jcgato93/nest-react-clean">
   <img alt="Latest Release" src="https://img.shields.io/github/v/release/jcgato93/nest-react-clean">
   <img alt="GitHub Stars" src="https://img.shields.io/github/stars/jcgato93/nest-react-clean?style=social">
-  <img alt="Skills" src="https://img.shields.io/badge/skills-7-blue">
+  <img alt="Skills" src="https://img.shields.io/badge/skills-8-blue">
 </p>
 
 ## Quick start
@@ -27,6 +27,7 @@ Unlike slash commands, these skills are **model-invoked** — Claude loads them 
 | `application` | NestJS | A use-case implementation, request/response DTO, or mapper |
 | `infrastructure-layer` | NestJS | A Prisma model/migration, repository implementation, controller, or NestJS module |
 | `domain-events` | NestJS | "when X is created, do Y" — domain events, `AggregateRoot`, event handlers |
+| `environment-config` | NestJS | A new/changed environment variable, `envs.ts`, or config for a new external service |
 | `code-review` | NestJS | "review this PR / my changes / this diff" |
 | `react-feature-dev` | React | A new page, component, service, or API integration on the frontend |
 
@@ -85,7 +86,7 @@ Before writing anything, `nest-clean` detects which scenario applies and confirm
 - **Modify existing functionality** — uses an impact table (e.g. "add field to entity" touches domain + application + infrastructure + a migration; "change response shape" touches only application + infrastructure) to catch every affected layer before proposing a diff.
 - **Hybrid** — a field change and a new endpoint in the same request are handled sequentially, never interleaved.
 
-Each layer has its own sub-skill (`domain-layer`, `application`, `infrastructure-layer`, `domain-events`) with step-by-step construction rules — e.g. every entity needs `plainToInstance`/`plainToInstanceList`, every use-case interface documents its business steps in JSDoc, every repository interface only declares methods not already on `BaseRepository`. `code-review` applies the same layer knowledge in reverse, producing a severity-rated review (`CRITICAL`/`HIGH`/`MEDIUM`/`LOW`) with a per-layer checklist and a final `APPROVE`/`REQUEST_CHANGES` verdict.
+Each layer has its own sub-skill (`domain-layer`, `application`, `infrastructure-layer`, `domain-events`, `environment-config`) with step-by-step construction rules — e.g. every entity needs `plainToInstance`/`plainToInstanceList`, every use-case interface documents its business steps in JSDoc, every repository interface only declares methods not already on `BaseRepository`. `code-review` applies the same layer knowledge in reverse, producing a severity-rated review (`CRITICAL`/`HIGH`/`MEDIUM`/`LOW`) with a per-layer checklist and a final `APPROVE`/`REQUEST_CHANGES` verdict.
 
 ## How the React skill set works
 

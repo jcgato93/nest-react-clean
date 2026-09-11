@@ -50,6 +50,7 @@ src/modules/{module}/
 | Use case implementation, DTOs, mapper | `application-layer` |
 | Prisma model, repository impl, controller, module, migration | `infrastructure-layer` |
 | Domain events, AggregateRoot, event listeners/handlers | `domain-events` |
+| New/modified environment variable, `envs.ts`, external service config | `environment-config` |
 | Code review / PR | `code-review-instructions` |
 
 These are separate, model-invoked skills distributed from the same `jcgato93/nest-react-clean` repo — they are not files inside this skill's own directory, and their install location varies by agent/setup, so never hardcode a path to them (e.g. `.github/skills/...` or `.claude/skills/...`).
@@ -251,7 +252,7 @@ throw new AssetMaintenanceNotFoundException(id);
 
 **Other rules:**
 - Prisma `select`/`include` always use object notation: `include: { company: true }` — there is no array form
-- Never use `@nestjs/config` — all config lives in `src/infrastructure/config/envs.ts`
+- Never use `@nestjs/config` — all config lives in `src/infrastructure/config/envs.ts` (invoke the `environment-config` skill before touching it)
 - Never skip migrations when the Prisma schema changes
 - All error messages in English (product/API is English-only)
 

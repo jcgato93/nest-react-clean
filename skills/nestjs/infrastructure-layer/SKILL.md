@@ -19,6 +19,7 @@ Persistence uses **Prisma**, not TypeORM. There is no decorated `*.entity.ts` cl
 | `PrismaService` / `PrismaModule` | `src/infrastructure/prisma/` — `@Global()`, no need to import elsewhere |
 | Base entity / base repository impl | `src/infrastructure/database/` |
 | External services (Redis, Auth0, Blob…) | `src/infrastructure/external/` |
+| Environment variables / config | `src/infrastructure/config/envs.ts` — invoke the `environment-config` skill before adding or reading one |
 | Repository implementations | `src/modules/{module}/infrastructure/repositories/` |
 | API controllers | `src/modules/{module}/infrastructure/controllers/` |
 | NestJS module file | `src/modules/{module}/{module}.module.ts` |

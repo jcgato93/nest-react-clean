@@ -1,6 +1,7 @@
 ---
 name: infrastructure-layer
-description: Use when creating or modifying infrastructure layer components in this NestJS project: Prisma models, repository implementations, API controllers, NestJS modules, or external service integrations. Domain and application layers should be defined first. Use this skill for requests like "create a controller for X", "implement repository for Y", "add a model for Z", "generate a migration", "register module", "create NestJS module", "add endpoint". Always use when code needs to go in src/infrastructure/ or src/modules/{module}/infrastructure/.
+description: >
+  Use when creating or modifying infrastructure layer components in this NestJS project: Prisma models, repository implementations, API controllers, NestJS modules, or external service integrations. Domain and application layers should be defined first. Use this skill for requests like "create a controller for X", "implement repository for Y", "add a model for Z", "generate a migration", "register module", "create NestJS module", "add endpoint". Always use when code needs to go in src/infrastructure/ or src/modules/{module}/infrastructure/.
 ---
 
 ## Infrastructure Layer Overview

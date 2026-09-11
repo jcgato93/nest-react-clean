@@ -1,6 +1,7 @@
 ---
 name: domain-layer
-description: Use when creating or modifying any domain layer component in this NestJS project: entities, value objects, repository interfaces, use case interfaces, or domain exceptions. Always implement the domain layer FIRST before working on application or infrastructure layers. Use this skill for any request like "create entity X", "add domain exception Y", "define repository interface for Z", "add use case interface", "create value object". This skill must be used whenever code needs to go in src/modules/{module}/domain/ or src/domain/common/.
+description: >
+  Use when creating or modifying any domain layer component in this NestJS project: entities, value objects, repository interfaces, use case interfaces, or domain exceptions. Always implement the domain layer FIRST before working on application or infrastructure layers. Use this skill for any request like "create entity X", "add domain exception Y", "define repository interface for Z", "add use case interface", "create value object". This skill must be used whenever code needs to go in src/modules/{module}/domain/ or src/domain/common/.
 ---
 
 ## Domain Layer Overview

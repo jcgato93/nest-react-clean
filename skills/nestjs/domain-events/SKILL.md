@@ -1,6 +1,7 @@
 ---
 name: domain-events
-description: Use when implementing or connecting domain events in this NestJS + Clean Architecture project. Trigger for phrases like "emit event", "domain event", "publish event", "listen to event", "event handler", "when company is created initialize X", "after creating X trigger Y", "when X happens do Y automatically". Use this skill to: create a DomainEvent class, emit domain events from an AggregateRoot, publish events from a use case after persistence, create event listener classes, and register handlers in a NestJS module.
+description: >
+  Use when implementing or connecting domain events in this NestJS + Clean Architecture project. Trigger for phrases like "emit event", "domain event", "publish event", "listen to event", "event handler", "when company is created initialize X", "after creating X trigger Y", "when X happens do Y automatically". Use this skill to: create a DomainEvent class, emit domain events from an AggregateRoot, publish events from a use case after persistence, create event listener classes, and register handlers in a NestJS module.
 ---
 
 ## Domain Events Overview

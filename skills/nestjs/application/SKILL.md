@@ -1,6 +1,7 @@
 ---
 name: application-layer
-description: Use when implementing application layer components in this NestJS project: use case implementations (*.use-case.impl.ts), DTOs (request/response), or Mappers. Domain interfaces must already exist before working here. Use this skill for requests like "implement use case X", "create DTO for Y", "add mapper for Z", "add cache to use case", "create request/response DTO", "implement the application logic". Always use when code needs to go in src/modules/{module}/application/.
+description: >
+  Use when implementing application layer components in this NestJS project: use case implementations (*.use-case.impl.ts), DTOs (request/response), or Mappers. Domain interfaces must already exist before working here. Use this skill for requests like "implement use case X", "create DTO for Y", "add mapper for Z", "add cache to use case", "create request/response DTO", "implement the application logic". Always use when code needs to go in src/modules/{module}/application/.
 ---
 
 ## Application Layer Overview

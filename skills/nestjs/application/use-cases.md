@@ -331,9 +331,9 @@ también lo debe hacer el repositorio, Esto con el fin de evitar mapeos innecesa
    }
    ```
 
-2. **No acceder directamente a modelos de Prisma**
+2. **No acceder directamente a modelos del ORM** (aplica igual con Prisma o TypeORM — ver skill `environment-config`/`infrastructure-layer` para saber cuál usa el proyecto)
    ```typescript
-   // ❌ Mal - Usar el tipo generado por Prisma
+   // ❌ Mal - Usar el tipo generado por el ORM (PrismaUser, UserEntity de TypeORM, etc.)
    async execute(id: string): Promise<PrismaUser> {
      return this.prisma.user.findUnique({ where: { id } });
    }

@@ -25,6 +25,8 @@ Unlike slash-command skills, these have no `argument-hint` or `disable-model-inv
 
 Companion reference files (e.g. `entities.md`, `use-cases.md`, `component-patterns.md`) sit next to `SKILL.md` in the same directory and are referenced by relative path from the skill body (`See [entities.md](./entities.md)`). The top-level orchestrator skill for a stack (`nest-clean/SKILL.md`, `react-feature-dev/SKILL.md`) links out to sibling skill directories for layer-specific detail rather than inlining everything — keep that split when adding new skills instead of growing one file indefinitely.
 
+`infrastructure-layer` further splits its persistence-specific reference docs into `prisma/` and `typeorm/` subfolders (each with its own `database-entities.md`, `custom-queries.md`, …) since this project's target codebase can use either ORM. `SKILL.md` itself stays ORM-agnostic where possible and branches into one subfolder or the other based on `.claude/nest-clean.config.json` (a small `{ "orm": "prisma" | "typeorm" }` file cached in the *target* project, written by `nest-clean`'s ORM Detection step the first time it's needed, so later requests don't re-derive it). Follow the same per-backend subfolder pattern if a future skill needs to branch on another interchangeable technology choice (e.g. a queue or cache backend).
+
 `skills/nestjs/nest-clean-workspace/` holds eval artifacts (`evals/evals.json`, `iteration-N/**`, `review.html`) produced by running the skills against benchmark tasks with/without-skill. Treat it as generated output, not something to hand-edit — if you improve a skill, a new eval iteration is how you validate the change, not a manual edit to old iteration folders.
 
 ## The NestJS skill set
@@ -35,7 +37,7 @@ Companion reference files (e.g. `entities.md`, `use-cases.md`, `component-patter
 |---|---|
 | `skills/nestjs/domain-layer/` | Entities, value objects, repository interfaces, use case interfaces, domain exceptions |
 | `skills/nestjs/application/` | Use case implementations, DTOs, mappers |
-| `skills/nestjs/infrastructure-layer/` | Prisma models/migrations, repository impls, controllers, NestJS modules |
+| `skills/nestjs/infrastructure-layer/` | Prisma or TypeORM models/entities/migrations, repository impls, controllers, NestJS modules — branches on the ORM cached in `.claude/nest-clean.config.json` (see its `prisma/` and `typeorm/` reference subfolders) |
 | `skills/nestjs/domain-events/` | `AggregateRoot`, domain events, event handlers/listeners |
 | `skills/nestjs/environment-config/` | `envs.ts`, Zod-validated environment variables, external service config |
 | `skills/nestjs/code-review/` | Structured PR review with severity ratings and a per-layer checklist |

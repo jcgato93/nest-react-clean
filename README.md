@@ -25,7 +25,7 @@ Unlike slash commands, these skills are **model-invoked** — Claude loads them 
 | `nest-clean` | NestJS | Any new module/endpoint/field — the entry point that detects the scenario and routes to the sub-skills below |
 | `domain-layer` | NestJS | An entity, value object, repository interface, use-case interface, or domain exception |
 | `application` | NestJS | A use-case implementation, request/response DTO, or mapper |
-| `infrastructure-layer` | NestJS | A Prisma model/migration, repository implementation, controller, or NestJS module |
+| `infrastructure-layer` | NestJS | A DB model/entity or migration (Prisma or TypeORM), repository implementation, controller, or NestJS module |
 | `domain-events` | NestJS | "when X is created, do Y" — domain events, `AggregateRoot`, event handlers |
 | `environment-config` | NestJS | A new/changed environment variable, `envs.ts`, or config for a new external service |
 | `code-review` | NestJS | "review this PR / my changes / this diff" |
@@ -51,7 +51,7 @@ Unlike slash commands, these skills are **model-invoked** — Claude loads them 
 
 ## What these skills are
 
-This repo packages the architectural knowledge of a specific NestJS + Clean Architecture backend (Prisma, Auth0, Redis) and its React 19 companion frontend (Zustand, React Query, React Router v7, Tailwind, shadcn-ui) as Claude Code skills.
+This repo packages the architectural knowledge of a specific NestJS + Clean Architecture backend (Prisma or TypeORM, Auth0, Redis) and its React 19 companion frontend (Zustand, React Query, React Router v7, Tailwind, shadcn-ui) as Claude Code skills. `infrastructure-layer` detects which ORM the target project uses (cached in `.claude/nest-clean.config.json` after the first check) and follows that ORM's conventions from then on.
 
 Instead of relying on Claude to infer conventions from scattered examples in the codebase — and getting it right roughly as often as it's wrong — each skill states the rule once: where a file goes, what it's named, what layer it belongs to, what it may and may not import. Claude reads the skill before writing the file, not after.
 
@@ -119,7 +119,7 @@ Both skill sets enforce the same split, since the target codebase is worked on b
 ### They're not a substitute for:
 
 - Product/business decisions about what the feature should do — the skills confirm scope with you before writing code, they don't invent it.
-- Infrastructure decisions outside the stack they cover (this pair assumes Prisma + Auth0 + Redis on the backend, and the exact frontend stack listed above).
+- Infrastructure decisions outside the stack they cover (this pair assumes Prisma or TypeORM + Auth0 + Redis on the backend, and the exact frontend stack listed above).
 - Manual verification — every skill ends with a checklist (TypeScript compiles, lint passes, Swagger reflects the new endpoints, the generated migration SQL is sane), but running those checks is still on you.
 
 ---
@@ -189,7 +189,7 @@ You don't invoke these skills directly — you just describe the feature, in Eng
 Claude:
 1. Loads `nest-clean`, detects **Scenario A — new module from scratch**.
 2. Confirms the module details with you (fields, operations, auth, pagination) before writing anything.
-3. Implements `domain/` (loading `domain-layer` first), then `application/` (loading `application`), then `infrastructure/` (loading `infrastructure-layer`), generating the Prisma migration along the way.
+3. Implements `domain/` (loading `domain-layer` first), then `application/` (loading `application`), then `infrastructure/` (loading `infrastructure-layer`, which resolves whether this project uses Prisma or TypeORM before touching any model/entity), generating the migration along the way.
 4. Registers the new module in `AppModule` and runs through the final verification checklist.
 
 For a frontend feature:

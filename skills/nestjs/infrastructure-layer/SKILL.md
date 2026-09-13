@@ -696,6 +696,7 @@ Check the generated file in `src/infrastructure/database/migrations/<timestamp>-
 ## Checklist
 
 - [ ] ORM for this project resolved via `.claude/nest-clean.config.json` (or detected + cached there if missing) — never guessed mid-task
+- [ ] Internal comments and any error messages added here use the project's resolved `commentLanguage`/`exceptionLanguage` from `.claude/nest-clean.config.json` (see `nest-clean`'s Language Configuration step) — never assumed
 - [ ] Model/entity added: Prisma `model` block in `prisma/schema.prisma`, or TypeORM `*.entity.ts` extending `BaseEntity`
 - [ ] Table mapped with `@@map('snake_case_table')` (Prisma) or `@Entity('snake_case_table')` (TypeORM)
 - [ ] All fields have explicit types and constraints (unique, default, nullability)

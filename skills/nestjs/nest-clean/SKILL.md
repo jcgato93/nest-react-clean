@@ -22,6 +22,25 @@ From here on, "the ORM" means this resolved value. `infrastructure-layer` has a 
 
 ---
 
+## Language Configuration (do this once, before anything else)
+
+Two more things are configurable per project and must **never** be hardcoded to a single language: the language of internal code comments, and the language of exception/error messages. Resolve both once per project, cache them alongside the ORM choice, and reuse the cache on every later request.
+
+1. **Read the cache first**: look for `.claude/nest-clean.config.json` at the project root.
+   ```json
+   { "orm": "prisma", "commentLanguage": "es", "exceptionLanguage": "en" }
+   ```
+   If `commentLanguage` and `exceptionLanguage` are both present, use them and skip straight to step 3.
+2. **No cache yet — ask the user once**:
+   > ¿En qué idioma deben ir los comentarios internos del código (`// comentario` en el cuerpo de clases/funciones) — español o inglés? ¿Y los mensajes de las excepciones/errores (los strings pasados a `throw new XxxException(...)`) — español o inglés?
+
+   If the user has no preference, suggest this skill set's historical defaults: comments in Spanish (`es`), exception/error messages in English (`en`) — that was the hardcoded convention before it became configurable.
+3. **Persist it**: write both resolved values into `.claude/nest-clean.config.json`, merging with the `orm` key rather than overwriting the file (all three keys share the same config file — see [ORM Detection](#orm-detection-do-this-once-before-anything-else)).
+
+From here on, "the comment language" and "the exception language" mean these resolved values. Every rule anywhere in this skill set that says comments or exception/error messages go in "Spanish" or "English" means *whichever language this config resolves to for this project* — treat those as the current default, not a hardcoded requirement, and follow the project's actual `.claude/nest-clean.config.json` instead.
+
+---
+
 ## Architecture at a Glance
 
 **Domain → Application → Infrastructure** (dependencies flow inward only, never outward).
@@ -227,8 +246,8 @@ All code identifiers and file names are **always in English** — even when the 
 | Variables/functions | `camelCase`, verbs, English | `findByCompanyId()` |
 | DB tables | `snake_case`, plural, English | `asset_maintenances`, `company_assets` |
 | Enums | name `PascalCase`, values `UPPERCASE`, English | `MaintenanceType.PREVENTIVE` |
-| Comments | Spanish | `// Verificar si el mantenimiento existe` |
-| Exception messages | English (updated 2026-08-08 — product/API is English-only) | `'Maintenance record with ID ${id} not found.'` |
+| Comments | Per the resolved comment language (see [Language Configuration](#language-configuration-do-this-once-before-anything-else)) — default `es` | `// Verificar si el mantenimiento existe` |
+| Exception messages | Per the resolved exception language (see [Language Configuration](#language-configuration-do-this-once-before-anything-else)) — default `en` | `'Maintenance record with ID ${id} not found.'` |
 
 **Translation examples** — user says Spanish, code uses English:
 
@@ -273,7 +292,7 @@ throw new AssetMaintenanceNotFoundException(id);
 - With Prisma: `select`/`include` always use object notation: `include: { company: true }` — there is no array form. With TypeORM: `select`/`relations` also always use object notation: `relations: { company: true }`, never an array of strings.
 - Never use `@nestjs/config` — all config lives in `src/infrastructure/config/envs.ts` (invoke the `environment-config` skill before touching it)
 - Never skip migrations when the DB schema changes, regardless of ORM
-- All error messages in English (product/API is English-only)
+- All error messages in the resolved exception language, all internal comments in the resolved comment language — see [Language Configuration](#language-configuration-do-this-once-before-anything-else); never assume English/Spanish without checking `.claude/nest-clean.config.json`
 
 ---
 
@@ -307,7 +326,7 @@ npm run format
 
 | Purpose | Path |
 |---------|------|
-| ORM choice for this project (cached) | `.claude/nest-clean.config.json` — see [ORM Detection](#orm-detection-do-this-once-before-anything-else) |
+| ORM choice, comment language, exception language for this project (cached) | `.claude/nest-clean.config.json` — see [ORM Detection](#orm-detection-do-this-once-before-anything-else) and [Language Configuration](#language-configuration-do-this-once-before-anything-else) |
 | Prisma schema (all models) — **if Prisma** | `prisma/schema.prisma` |
 | `PrismaService` / `PrismaModule` — **if Prisma** | `src/infrastructure/prisma/` |
 | `DatabaseModule` / `DataSource` config — **if TypeORM** | `src/infrastructure/database/database.module.ts` |

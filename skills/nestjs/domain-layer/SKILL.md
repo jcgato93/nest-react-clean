@@ -25,7 +25,7 @@ Components:
 
 **Rule**: Nothing in a module's `domain/` may import from `application/` or `infrastructure/`. It may import from `src/domain/common/` (shared domain).
 
-**Language rule**: All file names, class names, code identifiers, and exception/error messages are in **English** — even when the user describes the feature in Spanish. The product/API is English-only (updated 2026-08-08; an earlier version of this rule said exception messages should be Spanish — that was wrong and every exception message in the codebase was corrected). Only internal code comments and JSDoc may stay in Spanish.
+**Language rule**: File names, class names, and code identifiers are **always English** — even when the user describes the feature in Spanish. Exception/error messages and internal code comments (including JSDoc) follow the project's configured language instead of a fixed one: check `.claude/nest-clean.config.json` for `exceptionLanguage` and `commentLanguage` (resolved once per project by `nest-clean`'s [Language Configuration](../nest-clean/SKILL.md#language-configuration-do-this-once-before-anything-else) step — read that cache, don't re-ask). If the config is missing, default to the project's historical convention: exception messages in English (`en`), comments in Spanish (`es`).
 
 ---
 
@@ -223,7 +223,7 @@ See [use-cases.md](./use-cases.md) for full documentation.
 
 **Step-by-step**:
 1. Create a class extending the appropriate base exception from `src/domain/common/exceptions/`
-2. Constructor calls `super(message)` with a descriptive English message
+2. Constructor calls `super(message)` with a descriptive message in the resolved exception language (see [Language Configuration](../nest-clean/SKILL.md#language-configuration-do-this-once-before-anything-else); default `en`)
 3. Name the class clearly reflecting the business rule violated
 
 Available base exceptions:
@@ -244,7 +244,7 @@ export class ProductNotFoundException extends CustomNotFoundException {
 ```
 
 **Rules**:
-- Error messages are ALWAYS in English (project convention, updated 2026-08-08 — the product/API is English-only; the earlier version of this skill said Spanish, that was wrong)
+- Error messages are always in the resolved exception language (check `.claude/nest-clean.config.json`'s `exceptionLanguage`; default `en`) — never hardcode English or Spanish
 - Name must reflect the specific business rule, not a generic HTTP error
 - Never expose technical details (stack traces, SQL errors) in the message
 
@@ -260,5 +260,5 @@ See [exceptions.md](./exceptions.md) for full documentation.
 - [ ] Repository interface extends `BaseRepository` and only declares new methods
 - [ ] Repository interface has JSDoc on every method
 - [ ] Use case interface has step-by-step JSDoc and correct return type
-- [ ] Domain exceptions extend the correct base and have English messages
+- [ ] Domain exceptions extend the correct base and have messages in the resolved exception language
 - [ ] No imports from `application/` or `infrastructure/` anywhere in the module's `domain/`

@@ -40,6 +40,7 @@ Si el skill de la capa que se está revisando no está disponible, decirlo expl�
 - [ ] ¿El código está debidamente documentado, incluyendo comentarios y documentación de funciones?
 - [ ] ¿Se han corregido los errores de linting y formateo?
 - [ ] ¿Se han actualizado las dependencias si es necesario?
+- [ ] ¿Los comentarios internos y los mensajes de excepción/error están en el idioma resuelto por `.claude/nest-clean.config.json` (`commentLanguage` / `exceptionLanguage` — ver la sección Language Configuration del skill `nest-clean`), y no en un idioma asumido de memoria? Si el archivo no existe todavía, aplicar los valores por defecto del proyecto (comentarios en español, excepciones en inglés) y señalarlo como sugerencia no bloqueante para que se resuelva la configuración.
 
 ### Domain
 

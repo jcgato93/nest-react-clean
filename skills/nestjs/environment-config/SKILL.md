@@ -158,10 +158,10 @@ Then consume it as `envs.stripeSecretKey` in whatever service under `src/infrast
 - **Fail fast at boot**: an invalid or missing required var must throw during module load (via `safeParse` + `throw`), not surface as `undefined` later at request time.
 - **Booleans always go through `booleanTransformer`**: bare `z.coerce.boolean()` is a known trap — `Boolean("false")` is `true` in JS, so a literal `"false"` string in `.env` would otherwise be read as truthy.
 - **Numbers always use `z.coerce.number()`**: raw env values are strings; without `coerce`, a numeric-looking value fails validation.
-- **Required secrets get a descriptive `.min(1, { message: '<VAR_NAME> is required' })`** — the error thrown at boot should name the exact variable that's missing, not just say "invalid config".
+- **Required secrets get a descriptive `.min(1, { message: '<VAR_NAME> is required' })`** — the error thrown at boot should name the exact variable that's missing, not just say "invalid config". Write the message in the project's resolved exception language (see `nest-clean`'s [Language Configuration](../nest-clean/SKILL.md#language-configuration-do-this-once-before-anything-else) — check `exceptionLanguage` in `.claude/nest-clean.config.json`; default `en`).
 - **Group related vars with a `// Comment` header**, mirrored identically between `envSchema` and the `envs` export, so the two stay easy to diff against each other.
 - **`.env.example` is updated in the same change** as any new var added to `envSchema` — it documents every variable a new environment needs, without real secret values.
-- Comments inside this file: Spanish, per the project's convention — only the two above (`booleanTransformer` explanation, load-order notes) are commonly needed; don't over-comment self-explanatory schema fields.
+- Comments inside this file follow the project's resolved comment language (check `commentLanguage` in `.claude/nest-clean.config.json`; default `es`, per the project's historical convention) — only the two above (`booleanTransformer` explanation, load-order notes) are commonly needed; don't over-comment self-explanatory schema fields.
 
 ---
 

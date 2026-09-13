@@ -17,11 +17,13 @@ Entities are core objects that encapsulate both data and behavior related to a s
 - **Private field type must match the getter return type**: if the getter returns `Email`, the private field must be `private _email: Email`, not `private _email: string`.
 - **Mutations must assign to the private field**: use `this._email = newEmail`, never `this.email = newEmail` (which tries to assign to a read-only getter and will fail at runtime).
 - **`id` is always optional in the interface**: the entity generates a UUID if `id` is not provided.
+- **Use UUID v7, not `crypto.randomUUID()`**: generate ids with the `uuid` package's `v7` export (`import { v7 as uuidv7 } from 'uuid';`), never `crypto.randomUUID()` (which produces UUID v4). v7 ids are time-ordered, so they insert sequentially into indexed primary key columns instead of fragmenting the B-tree — better write performance and locality on the database side. Make sure the `uuid` package (and `@types/uuid` if the project isn't already on a version that ships its own types) is a dependency.
 
 ### Example of an Entity
 
 ```typescript
 // src/domain/users/entities/user.entity.ts
+import { v7 as uuidv7 } from 'uuid';
 import { Email } from '../value-objects/email.value-object';
 import { Username } from '../value-objects/username.value-object';
 
@@ -37,7 +39,7 @@ export class User {
   private _email: Email;       // ✅ type matches getter return type
 
   constructor(props: IUser) {
-    this._id = props.id ?? crypto.randomUUID();
+    this._id = props.id ?? uuidv7();
     this._username = props.username;
     this._email = props.email;
   }

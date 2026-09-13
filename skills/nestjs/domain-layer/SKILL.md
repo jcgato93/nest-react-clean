@@ -36,13 +36,14 @@ Components:
 **Step-by-step**:
 1. Define an interface `I{Entity}` with all properties (use value object types where applicable)
 2. Declare private fields with `_` prefix matching the interface types
-3. Constructor assigns each field (generate `id` with `crypto.randomUUID()` if not provided)
+3. Constructor assigns each field (generate `id` with `uuidv7()` from the `uuid` package if not provided — **never** `crypto.randomUUID()`: v7 ids are time-ordered, which keeps database primary key indexes sequential and performs better than the random v4 ids `crypto.randomUUID()` produces)
 4. Add public getters for each field
 5. Add domain behavior methods (state mutations, business rules)
 6. Implement `static plainToInstance(raw: any): Entity` and `static plainToInstanceList(raw: any[]): Entity[]`
 
 ```typescript
 // src/modules/{module}/domain/entities/{entity}.domain.ts
+import { v7 as uuidv7 } from 'uuid';
 import { Email } from '@/domain/common/value-objects/email.value-object';
 
 export interface IUser {
@@ -57,7 +58,7 @@ export class User {
   private _email: Email; // private field type matches the Value Object
 
   constructor(props: IUser) {
-    this._id = props.id ?? crypto.randomUUID();
+    this._id = props.id ?? uuidv7();
     this._name = props.name;
     this._email = props.email;
   }
